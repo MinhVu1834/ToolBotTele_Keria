@@ -194,7 +194,7 @@ def callback(call):
 
         bot.send_photo(
             chat_id,
-            "AgACAgUAAxkBAAMXaasEKSg_he0ruLpgrtvW_Ag9ZZcAAu4Paxsc9llVAAHBjlihT810AQADAgADeQADOgQ",
+            "AgACAgUAAxkBAAMPabRFMV_jUcW8H6nbpIboTdQDrc4AAuYMaxuO3KFVz1ekH9nh6aIBAAMCAAN5AAM6BA",
             caption=text,
             parse_mode="Markdown"
         )
@@ -215,7 +215,7 @@ def callback(call):
 
         bot.send_photo(
             chat_id,
-            "AgACAgUAAxkBAAMdaasEOh6A1qH4c2jwkz38BuYAAdwSAALxD2sbHPZZVUOt0SFDvZdoAQADAgADeAADOgQ",
+            "AgACAgUAAxkBAAMTabRFPSjOLUa8fJBj1sYXbfO_PkYAAugMaxuO3KFVxujV5sDoYdABAAMCAAN4AAM6BA",
             caption=text,
             parse_mode="Markdown"
         )
@@ -234,7 +234,7 @@ def callback(call):
 
         bot.send_photo(
             chat_id,
-            "AgACAgUAAxkBAAMZaasEMPgy-ZAScmMPU-Oeyr753V4AAu8Paxsc9llVHRe7cX6w3MsBAAMCAAN5AAM6BA",
+            "AgACAgUAAxkBAAMRabRFOD_zgPryawY6oYOJjfh_WfEAAucMaxuO3KFV3hRrVh-Pyq4BAAMCAAN5AAM6BA",
             caption=text,
             parse_mode="Markdown"
         )
