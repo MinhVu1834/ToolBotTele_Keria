@@ -8,7 +8,7 @@ from flask import Flask, request
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID", "0"))
 
-REG_LINK = "https://vsbet191.com/p/gOs1"
+REG_LINK = "https://vsbets.online"
 
 bot = telebot.TeleBot(BOT_TOKEN, threaded=False)
 server = Flask(__name__)
