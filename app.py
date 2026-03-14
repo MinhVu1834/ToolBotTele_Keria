@@ -108,16 +108,21 @@ def show_promo_menu(chat_id):
     )
 
     btn2 = types.InlineKeyboardButton(
-        "🎁 Nạp đầu 100%",
+        "🎁 Nạp đầu tặng 100%",
         callback_data="promo_100"
     )
 
     btn3 = types.InlineKeyboardButton(
-        "🎁 Nạp đầu 30%",
+        "🎁 Nạp đầu tặng 30%",
         callback_data="promo_30"
     )
 
     btn4 = types.InlineKeyboardButton(
+        "🎁 Nạp đầu tặng 100k trải nghiệm",
+        callback_data="promo_100k"
+    )
+
+    btn5 = types.InlineKeyboardButton(
         "🎮 Trải nghiệm 58K",
         callback_data="promo_58"
     )
@@ -126,6 +131,7 @@ def show_promo_menu(chat_id):
     markup.row(btn2)
     markup.row(btn3)
     markup.row(btn4)
+    markup.row(btn5)
 
     bot.send_message(
         chat_id,
@@ -228,6 +234,23 @@ def callback(call):
 
         show_after_promo_buttons(chat_id)
 
+    elif data == "promo_100k":
+
+        text = (
+            "🎁 *KHUYẾN MÃI NẠP 100k*\n\n"
+            "100K tặng 100k → tổng 200k\n"
+            "Yêu cầu 3 vòng cược"
+        )
+
+        bot.send_photo(
+            chat_id,
+            "AgACAgUAAxkBAAMRabRFOD_zgPryawY6oYOJjfh_WfEAAucMaxuO3KFV3hRrVh-Pyq4BAAMCAAN5AAM6BA",
+            caption=text,
+            parse_mode="Markdown"
+        )
+
+        show_after_promo_buttons(chat_id)
+
     elif data == "promo_58":
 
         text = (
@@ -266,9 +289,9 @@ def handle_text(message):
         tg_username = f"@{message.from_user.username}" if message.from_user.username else "Không có"
 
         admin_text = (
-            "👤 KHÁCH GỬI USERNAME\n\n"
+            "👤 KHÁCH GỬI TÊN GAME\n\n"
             f"👤 Telegram: {tg_username}\n"
-            f"🎮 Username: {username}\n"
+            f"🎮 Tên game : {username}\n"
             f"🆔 ChatID: {chat_id}"
         )
 
