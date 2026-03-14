@@ -27,7 +27,7 @@ def enable_getid(message):
 
     bot.send_message(
         chat_id,
-        "Gửi ảnh để lấy FILE_ID\n\nTắt bằng /stopgetid"
+        "📸 Gửi ảnh để bot trả về FILE_ID\n\nTắt bằng /stopgetid"
     )
 
 
@@ -37,7 +37,7 @@ def stop_getid(message):
     chat_id = message.chat.id
     debug_get_id_mode.discard(chat_id)
 
-    bot.send_message(chat_id, "Đã tắt chế độ lấy FILE_ID")
+    bot.send_message(chat_id, "✅ Đã tắt chế độ lấy FILE_ID")
 
 
 # ================= START =================
@@ -308,13 +308,27 @@ def handle_media(message):
 
     chat_id = message.chat.id
 
+    # DEBUG FILE_ID
+    if chat_id in debug_get_id_mode:
+
+        if message.photo:
+            file_id = message.photo[-1].file_id
+        else:
+            file_id = message.document.file_id
+
+        bot.reply_to(message, f"FILE_ID:\n{file_id}")
+        return
+
+
     if user_state.get(chat_id) != "WAITING_RECEIPT":
         return
+
 
     if message.photo:
         file_id = message.photo[-1].file_id
     else:
         file_id = message.document.file_id
+
 
     time_str = datetime.now().strftime("%H:%M %d/%m/%Y")
 
