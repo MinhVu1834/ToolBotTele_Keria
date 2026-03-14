@@ -209,7 +209,7 @@ def callback(call):
 
         bot.send_photo(
             chat_id,
-            "AgACAgUAAxkBAAMTabRFPSjOLUa8fJBj1sYXbfO_PkYAAugMaxuO3KFVxujV5sDoYdABAAMCAAN4AAM6BA",
+            "AgACAgUAAxkBAAN-abWYBvaGHzvbqbcAAXjhJ4Bj7NBTAAKjDmsbsAmpVTgwNDztbbdBAQADAgADeQADOgQ",
             caption=text,
             parse_mode="Markdown"
         )
@@ -260,7 +260,12 @@ def callback(call):
             "Không cần vòng cược"
         )
 
-        bot.send_message(chat_id, text, parse_mode="Markdown")
+        bot.send_photo(
+            chat_id,
+            "AgACAgUAAxkBAAOAabWYOXVsQE9l_ak2E0QgWVzZAXMAAqQOaxuwCalV7dSMMg7u_GABAAMCAAN5AAM6BA",
+            caption=text,
+            parse_mode="Markdown"
+        )
 
         show_after_promo_buttons(chat_id)
 
