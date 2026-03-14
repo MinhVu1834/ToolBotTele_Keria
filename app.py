@@ -244,7 +244,7 @@ def callback(call):
 
         bot.send_photo(
             chat_id,
-            "AgACAgUAAxkBAAMRabRFOD_zgPryawY6oYOJjfh_WfEAAucMaxuO3KFV3hRrVh-Pyq4BAAMCAAN5AAM6BA",
+            "AgACAgUAAxkBAANaabVXUw6H5DF65ei4i0sp2t57QLoAAlEOaxuO3KlVxWXoJ0VooBABAAMCAAN5AAM6BA",
             caption=text,
             parse_mode="Markdown"
         )
