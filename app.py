@@ -135,35 +135,30 @@ def show_promo_menu(chat_id):
     )
 
 
-# ================= GỢI Ý NẠP =================
+# ================= NÚT SAU KHUYẾN MÃI =================
 
-def suggest_deposit(chat_id):
-
-    text = "💰 Anh/chị dự định nạp khoảng bao nhiêu?"
+def show_after_promo_buttons(chat_id):
 
     markup = types.InlineKeyboardMarkup()
 
-    b1 = types.InlineKeyboardButton("500K", callback_data="deposit_500k")
-    b2 = types.InlineKeyboardButton("1M", callback_data="deposit_1m")
-    b3 = types.InlineKeyboardButton("2M", callback_data="deposit_2m")
-    b4 = types.InlineKeyboardButton("5M", callback_data="deposit_5m")
-
-    back = types.InlineKeyboardButton(
-        "🔙 Chọn khuyến mãi khác",
-        callback_data="back_promo"
+    btn1 = types.InlineKeyboardButton(
+        "📤 Gửi ảnh chuyển khoản để cộng khuyến mãi",
+        callback_data="send_receipt"
     )
 
-    admin_btn = types.InlineKeyboardButton(
-        "📩 Nhắn tin cho admin",
+    btn2 = types.InlineKeyboardButton(
+        "📩 Nhắn tin trực tiếp cho admin",
         url=f"https://t.me/{os.getenv('ADMIN_USERNAME','')}"
     )
 
-    markup.row(b1, b2)
-    markup.row(b3, b4)
-    markup.row(admin_btn)
-    markup.row(back)
+    markup.row(btn1)
+    markup.row(btn2)
 
-    bot.send_message(chat_id, text, reply_markup=markup)
+    bot.send_message(
+        chat_id,
+        "Sau khi chuyển khoản, anh/chị gửi ảnh chuyển khoản để bot cộng khuyến mãi nhé.",
+        reply_markup=markup
+    )
 
 
 # ================= CALLBACK =================
@@ -174,14 +169,8 @@ def callback(call):
     chat_id = call.message.chat.id
     data = call.data
 
-
     if data == "have_account":
         ask_username(chat_id)
-
-
-    elif data == "back_promo":
-        show_promo_menu(chat_id)
-
 
     elif data == "promo_insurance":
 
@@ -199,8 +188,7 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        suggest_deposit(chat_id)
-
+        show_after_promo_buttons(chat_id)
 
     elif data == "promo_100":
 
@@ -220,8 +208,7 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        suggest_deposit(chat_id)
-
+        show_after_promo_buttons(chat_id)
 
     elif data == "promo_30":
 
@@ -239,8 +226,7 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        suggest_deposit(chat_id)
-
+        show_after_promo_buttons(chat_id)
 
     elif data == "promo_58":
 
@@ -251,20 +237,15 @@ def callback(call):
             "Không cần vòng cược"
         )
 
-        bot.send_message(
-            chat_id,
-            text,
-            parse_mode="Markdown"
-        )
+        bot.send_message(chat_id, text, parse_mode="Markdown")
 
-        suggest_deposit(chat_id)
+        show_after_promo_buttons(chat_id)
 
-
-    elif data.startswith("deposit_"):
+    elif data == "send_receipt":
 
         bot.send_message(
             chat_id,
-            "Anh/chị chuyển khoản xong gửi *ảnh chuyển khoản* để em cộng điểm nhé.",
+            "Anh/chị chuyển khoản xong gửi *ảnh chuyển khoản* để em cộng khuyến mãi nhé.",
             parse_mode="Markdown"
         )
 
@@ -304,28 +285,13 @@ def handle_media(message):
 
     chat_id = message.chat.id
 
-
-    if chat_id in debug_get_id_mode:
-
-        if message.photo:
-            file_id = message.photo[-1].file_id
-        else:
-            file_id = message.document.file_id
-
-        bot.reply_to(message, file_id)
-
-        return
-
-
     if user_state.get(chat_id) != "WAITING_RECEIPT":
         return
-
 
     if message.photo:
         file_id = message.photo[-1].file_id
     else:
         file_id = message.document.file_id
-
 
     time_str = datetime.now().strftime("%H:%M %d/%m/%Y")
 
