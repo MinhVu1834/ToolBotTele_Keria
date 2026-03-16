@@ -6,7 +6,7 @@ from telebot import types
 from flask import Flask, request
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID", "0"))
+ADMIN_CHAT_ID = int(os.getenv("8264003504", "0"))
 
 REG_LINK = "https://vsbets.online"
 
