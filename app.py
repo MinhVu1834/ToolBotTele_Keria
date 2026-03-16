@@ -128,8 +128,14 @@ def ask_have_account(chat_id):
         url=REG_LINK
     )
 
+    btn3 = types.InlineKeyboardButton(
+        "🔙 XEM LẠI KHUYẾN MÃI",
+        callback_data="back_promo"
+    )
+
     markup.row(btn1)
     markup.row(btn2)
+    markup.row(btn3)
 
     bot.send_message(chat_id, text, reply_markup=markup)
 
@@ -186,6 +192,10 @@ def callback(call):
 
     if data == "have_account":
         ask_username(chat_id)
+
+
+    elif data == "back_promo":
+        show_promo_menu(chat_id)
 
 
     elif data == "promo_insurance":
