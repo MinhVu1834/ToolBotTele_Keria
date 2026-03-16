@@ -48,57 +48,26 @@ def start(message):
     chat_id = message.chat.id
 
     text = (
-        "🎉 Chào mừng anh/chị đến với BOT nhận khuyến mãi tự động của VSBet!\n\n"
-        "🎁 Cập nhật khuyến mãi nhanh – hỗ trợ 24/7.\n"
-        "👉 Anh/chị đã có tài khoản VSBet chưa?"
+        "🎉 *Chào mừng anh/chị đến với BOT nhận khuyến mãi tự động của VSBet!*\n\n"
+        "🎁 Bot sẽ giúp anh/chị nhận khuyến mãi nhanh nhất.\n\n"
+        "🔥 Các khuyến mãi nổi bật:\n"
+        "• Bảo hiểm cược thể thao\n"
+        "• Nạp đầu tặng 100%\n"
+        "• Nạp đầu tặng 30%\n"
+        "• Tặng 100K trải nghiệm\n"
+        "• Trải nghiệm 58K miễn phí\n\n"
+        "👇 Anh/chị chọn khuyến mãi muốn tham gia:"
     )
 
-    markup = types.InlineKeyboardMarkup()
-
-    btn1 = types.InlineKeyboardButton(
-        "✅ ĐÃ CÓ TÀI KHOẢN",
-        callback_data="have_account"
-    )
-
-    btn2 = types.InlineKeyboardButton(
-        "🆕 ĐĂNG KÝ TÀI KHOẢN MỚI",
-        url=REG_LINK
-    )
-
-    markup.row(btn1)
-    markup.row(btn2)
-
-    bot.send_message(
-        chat_id,
-        text,
-        parse_mode="Markdown",
-        reply_markup=markup
-    )
-
-
-# ================= HỎI USERNAME =================
-
-def ask_username(chat_id):
-
-    text = (
-        "👤 Anh/chị vui lòng gửi *tên tài khoản VSBet* để bot hỗ trợ kiểm tra nhé.\n\n"
-        "📌 Ví dụ:\n"
-        "`abc123`"
-    )
-
-    bot.send_message(chat_id, text, parse_mode="Markdown")
-
-    user_state[chat_id] = "WAITING_USERNAME"
+    show_promo_menu(chat_id, text)
 
 
 # ================= MENU KHUYẾN MÃI =================
 
-def show_promo_menu(chat_id):
+def show_promo_menu(chat_id, text=None):
 
-    text = (
-        "🎁 *KHUYẾN MÃI VSBet*\n\n"
-        "Chọn khuyến mãi muốn tham gia:"
-    )
+    if text is None:
+        text = "🎁 *KHUYẾN MÃI VSBet*\n\nChọn khuyến mãi muốn tham gia:"
 
     markup = types.InlineKeyboardMarkup()
 
@@ -141,6 +110,45 @@ def show_promo_menu(chat_id):
     )
 
 
+# ================= HỎI CÓ TÀI KHOẢN =================
+
+def ask_have_account(chat_id):
+
+    text = "👉 Anh/chị đã có tài khoản VSBet chưa?"
+
+    markup = types.InlineKeyboardMarkup()
+
+    btn1 = types.InlineKeyboardButton(
+        "✅ ĐÃ CÓ TÀI KHOẢN",
+        callback_data="have_account"
+    )
+
+    btn2 = types.InlineKeyboardButton(
+        "🆕 ĐĂNG KÝ TÀI KHOẢN",
+        url=REG_LINK
+    )
+
+    markup.row(btn1)
+    markup.row(btn2)
+
+    bot.send_message(chat_id, text, reply_markup=markup)
+
+
+# ================= HỎI USERNAME =================
+
+def ask_username(chat_id):
+
+    text = (
+        "👤 Anh/chị vui lòng gửi *tên tài khoản VSBet* để bot hỗ trợ kiểm tra nhé.\n\n"
+        "📌 Ví dụ:\n"
+        "`abc123`"
+    )
+
+    bot.send_message(chat_id, text, parse_mode="Markdown")
+
+    user_state[chat_id] = "WAITING_USERNAME"
+
+
 # ================= NÚT SAU KHUYẾN MÃI =================
 
 def show_after_promo_buttons(chat_id):
@@ -175,8 +183,10 @@ def callback(call):
     chat_id = call.message.chat.id
     data = call.data
 
+
     if data == "have_account":
         ask_username(chat_id)
+
 
     elif data == "promo_insurance":
 
@@ -194,7 +204,8 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        show_after_promo_buttons(chat_id)
+        ask_have_account(chat_id)
+
 
     elif data == "promo_100":
 
@@ -214,7 +225,8 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        show_after_promo_buttons(chat_id)
+        ask_have_account(chat_id)
+
 
     elif data == "promo_30":
 
@@ -232,7 +244,8 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        show_after_promo_buttons(chat_id)
+        ask_have_account(chat_id)
+
 
     elif data == "promo_100k":
 
@@ -249,7 +262,8 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        show_after_promo_buttons(chat_id)
+        ask_have_account(chat_id)
+
 
     elif data == "promo_58":
 
@@ -267,7 +281,8 @@ def callback(call):
             parse_mode="Markdown"
         )
 
-        show_after_promo_buttons(chat_id)
+        ask_have_account(chat_id)
+
 
     elif data == "send_receipt":
 
@@ -303,7 +318,7 @@ def handle_text(message):
         if ADMIN_CHAT_ID:
             bot.send_message(ADMIN_CHAT_ID, admin_text)
 
-        show_promo_menu(chat_id)
+        show_after_promo_buttons(chat_id)
 
 
 # ================= MEDIA =================
@@ -313,7 +328,6 @@ def handle_media(message):
 
     chat_id = message.chat.id
 
-    # DEBUG FILE_ID
     if chat_id in debug_get_id_mode:
 
         if message.photo:
